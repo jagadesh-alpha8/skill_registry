@@ -1,0 +1,430 @@
+/* Reset and Base Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+} */
+
+/* Header Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: white;
+  border-bottom: 1px solid #ccc;
+}
+html {
+    scroll-behavior: smooth;
+}
+.logo {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.titles,
+.site-name {
+  margin-right: auto;
+}
+
+.login-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn,
+.lang {
+  padding: 6px 12px;
+  background: #003333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Navbar Styling */
+nav {
+  background-color: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar > li {
+  position: relative;
+}
+
+.navbar > li > a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  padding: 15px 18px;
+  transition: background 0.3s ease;
+}
+
+.navbar > li > a:hover {
+  background: #005555;
+  border-radius: 4px;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #003333;
+  min-width: 180px;
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 15px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #005555;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Nav Links Hover */
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  transition: background 0.3s ease;
+}
+
+nav ul li a:hover {
+  background: #005555;
+  border-radius: 4px;
+}
+
+/* Hero Section */
+.hero {
+  background: #1c2f2f;
+  padding: 50px 20px;
+  color: white;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.cm-block,
+.dm-block {
+  text-align: center;
+  max-width: 200px;
+}
+
+.cm-block img,
+.dm-block img {
+  width: 100%;
+  max-width: 150px;
+}
+
+.label-box {
+  background-color: #003333;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.label-box p {
+  font-weight: bold;
+  margin: 0;
+  color: #b3f0f0;
+}
+
+.label-box h4 {
+  color: #ffcc33;
+  margin: 5px 0 0;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  color: #f9c311;
+  margin-bottom: 10px;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  margin: 10px 0;
+}
+
+.hero-text p {
+  font-size: 20px;
+  color: #cde;
+}
+
+.hero-text .accent {
+  color: #2ee0ec;
+}
+
+.highlight {
+  color: #ffcc00;
+}
+
+/* Registration Form */
+.register-form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.register-form label {
+  font-weight: bold;
+  text-align: left;
+}
+
+.register-form input,
+.register-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.register-form button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register-form button:hover {
+  background-color: #005599;
+}
+
+/* Footer */
+footer {
+  background-color: #003366;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+/* Section Styling */
+.section {
+  padding: 60px 20px;
+}
+
+.section h2 {
+  font-size: 32px;
+  text-align: center;
+  color: #003366;
+  margin-bottom: 50px;
+  margin-top: 10px;
+}
+
+/* Ecosystem Cards */
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.ecosystem-card {
+  background: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.ecosystem-card:hover {
+  transform: translateY(-5px);
+}
+
+.ecosystem-card img {
+  width: 220px;
+  height: 150px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.ecosystem-card h3 {
+  color: #003366;
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+/* Platform Features */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  justify-content: center;
+  gap: 30px;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  color: #003366;
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.feature-card p {
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.dropdown:hover .dropdown-menu{
+  display: block;
+}
+/* Alternate Section Background */
+.section.dark {
+  background: #f0f4f8;
+}
+
+/* Circular Image */
+.circular-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* Search Form */
+#searchForm {
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+#searchForm .form-select,
+#searchForm .btn {
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#searchForm .btn {
+  background-color: #003366;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+#searchForm .btn:hover {
+  background-color: #005599;
+}
+
+/* Candidate Cards */
+.candidate-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.candidate-card:hover {
+  transform: translateY(-5px);
+}
+
+.candidate-card h6 {
+  font-size: 18px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.candidate-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* View More Button */
+.btn-primary {
+  background-color: #0055ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #003399;
+}
+
+/* Responsive Grid Adjustments */
+@media (max-width: 1024px) {
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ecosystem-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

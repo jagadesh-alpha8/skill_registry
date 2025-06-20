@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
-from skillapp.models import Year, CollegeType, College, Department, Course, TrainingProvider, CandidateProfile
+from skillapp.models import Year, CollegeType, College, Department, Course, TrainingProvider, CandidateProfile, District
 
 class Command(BaseCommand):
     help = 'Import candidate data from an Excel file'
@@ -15,6 +15,9 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR(f"❌ Error reading file: {e}"))
             return
 
+        CandidateProfile.objects.all().delete()
+        self.stdout.write(self.style.WARNING("⚠️ Deleted all old candidate profiles."))
+
         count = 0
 
         for _, row in df.iterrows():
@@ -24,6 +27,8 @@ class Command(BaseCommand):
             department, _ = Department.objects.get_or_create(dept_name=row['Department'])
             course, _ = Course.objects.get_or_create(course_name=row['Course'])
             tp, _ = TrainingProvider.objects.get_or_create(tp_name=row['Training Provider'])
+            district, _ = District.objects.get_or_create(name=row['District'])
+
 
             CandidateProfile.objects.create(
                 name=row['Name'],
@@ -36,7 +41,8 @@ class Command(BaseCommand):
                 college_name=college,
                 department=department,
                 course=course,
-                tp=tp
+                tp=tp,
+                district=district
             )
             count += 1
 

@@ -31,6 +31,12 @@ class TrainingProvider(models.Model):
     def __str__(self):
         return self.tp_name
 
+class District(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 # Main Candidate Profile Table
 
 class CandidateProfile(models.Model):
@@ -46,6 +52,8 @@ class CandidateProfile(models.Model):
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     tp = models.ForeignKey(TrainingProvider, on_delete=models.SET_NULL, null=True)
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True)
+
 
     def __str__(self):
         return f"{self.name} ({self.register_number})"

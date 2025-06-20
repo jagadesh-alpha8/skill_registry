@@ -28,9 +28,9 @@
     <a class="navbar-brand" href="#">Naan Mudhalvan Skill Registry</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Explore Skilled Candidates</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Skill Domains</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'sample' %}">Explore Skilled Candidates</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skill">Skill Domains</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">About</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}" target="_self">Recruiter Login</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
@@ -44,6 +44,13 @@
     <h1 class="display-6 fw-bold">Empowering Tamil Nadu's Youth with Skills for the Future</h1>
     <p class="lead">Discover industry-trained students from the Naan Mudhalvan initiative.</p>
     
+    {% if messages %}
+  <div class="alert alert-danger">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+{% endif %}
 
 <form method="post" action="">
   {% csrf_token %}
@@ -92,29 +99,19 @@
         {% endfor %}
       </select>
     </div>
-
+     <div class="col-md-2">
+        <button class="btn btn-light w-100" name="search" value="search">Search Skilled Candidates</button>
+      </div>
     <div class="col-md-2">
       <a href="{% url 'my_home' %}" class="btn btn-danger w-100">Reset</a>
     </div>
   </div>
 </form>
 
-
-<script>
-  window.addEventListener('load', function () {
-    // If page is being refreshed (not the result of form submission), reset the form
-    if (performance.navigation.type === 1) {  // Type 1 = Reload
-      document.querySelectorAll("form select").forEach(function(select) {
-        select.selectedIndex = 0;
-      });
-    }
-  });
-</script>
-
-
 </div>
 </section>
 
+{% if show_results %}
 <div class="row text-center mb-4">
   <div class="col-md-6">
     <div class="bg-light p-3 rounded border">
@@ -129,63 +126,29 @@
     </div>
   </div>
 </div>
+  
 
-<!-- Glimpse of Our Talents -->
-<!-- <section class="py-5 bg-light"> -->
- <div class="container">
-  <h3 class="mb-4">Glimpse of Our Talents</h3>
-  <div class="row g-4" id="candidateContainer">
-    {% for candidate in candidates %}
-      <div class="col-md-3 {% if forloop.counter > 4 %}d-none more-candidates{% endif %}">
-        <div class="candidate-card">
-          <h6>{{ candidate.name }}</h6>
-          <p>
-            <!-- {{ candidate.city }}<br> -->
-            Certified: {{ candidate.course }}<br>
-            College: {{ candidate.college_name }}<br>
-            Training Provider: {{ candidate.tp }}
-          </p>
-        </div>
+
+<!-- Skill Domains Offered -->
+{% endif %}
+
+<section class="py-5" id="skill">
+  <div class="container">
+    <h3 class="mb-4">Skill Domains Offered</h3>
+    <div class="row g-3">
+      {% for i in c1 %}
+      <div class="col-md-3">
+        <div class="skill-domain-card">{{ i }}</div>
       </div>
-    {% endfor %}
-  </div>
-
-  {% if candidates|length > 4 %}
-    <div class="text-center mt-4">
-      <button class="btn btn-primary" onclick="showMore()">View More Candidates</button>
+      {% endfor %}
     </div>
-  {% endif %}
-</div>
-
-<script>
-  function showMore() {
-    const moreCards = document.querySelectorAll('.more-candidates');
-    moreCards.forEach(card => card.classList.remove('d-none'));
-    event.target.style.display = 'none'; // Optional: Hide the button
-  }
-</script>
-
-<!-- </section> -->
-
+  </div>
+</section>
 <!-- What is the Skill Registry -->
 <section class="py-5">
   <div class="container">
     <h2 class="mb-4">What is the Skill Registry?</h2>
     <p>A dynamic public platform showcasing trained youth under the Naan Mudhalvan scheme. Employers and job platforms can discover talent based on course, location, and skill level.</p>
-  </div>
-</section>
-
-<!-- Skill Domains Offered -->
-<section class="py-5">
-  <div class="container">
-    <h3 class="mb-4">Skill Domains Offered</h3>
-    <div class="row g-3">
-      {% for i in c1 %}
-        <div class="col-md-3">
-          <div class="skill-domain-card">{{ i }}</div>
-        </div>
-      {% endfor %}
-    </div>
   </div>
 </section>
 

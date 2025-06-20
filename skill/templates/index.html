@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" > 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TNSkill Registry</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+  body {
+        font-family: 'Poppins', sans-serif;
+
+  }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar d-flex align-items-center justify-content-between p-3">
+      <img src="{% static 'images/tn-logo.png' %}" alt="Government Logo" class="logo"/>
+      <div class="titles text-center">
+        <b ><p>தமிழ்நாடு அரசு</p></b>
+        <b><p>Government of Tamil Nadu</p></b>
+      </div>
+      <div class="site-name text-center">
+        <p>தமிழ்நாடு திறன் மேம்பாட்டு கழகம்</p>
+        <p>Tamil Nadu Skill Development Corporation</p>
+      </div>
+      <div class="login-bar d-flex align-items-center gap-2">
+        <button class="lang">தமிழ் | English</button>
+        <a href="{% url 'login_page' %}">
+          <button class="login-btn">Login</button>
+        </a>
+      </div>
+      <img src="{% static 'images/leader1.jpg' %}" alt="Chief Minister" class="circular-img">
+    </div>
+
+    <nav>
+      <ul class="navbar">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Mentors</a></li>
+        <li class="dropdown">
+          <a href="#">Offerings</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Internships</a></li>
+            <li><a href="#">Workshops</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Skill Offerings</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Technical Skills</a></li>
+            <li><a href="#">Soft Skills</a></li>
+            <li><a href="#">Language Skills</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">EOI</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Expression of Interest</a></li>
+            <li><a href="#">Vendor Registration</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Apprenticeship</a></li>
+        <li><a href="#">Media</a></li>
+        <li><a href="#">Service Desk</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div>
+    <img src="{% static 'images/1.png' %}" alt="Banner" style="width: 100%; height: auto;">
+  </div>
+
+  <div class="text-center py-3" style="background-color: #f4f4f4; padding: 30px" >
+    <h2 style="color: #d30db2; font-weight: 800; font-size: 40px;">
+      Strengthening Tamil Nadu's Workforce Ecosystem
+    </h2><br>
+    <p style="font-size: 22px; color: #003300;">
+      The TNSkill Registry is a comprehensive database of
+      <span style="color: #0055ff; font-weight: bold;">
+        over 14.7 lakh skilled professionals under Naan Mudhalvan skill initiative and short-term skilling by TNSDC and other Govt Depts
+      </span>
+      in various sectors ranging from IT & ITeS, Electronics, Capital Goods, Logistics, BFSI, Healthcare, Apparel, etc.
+    </p>
+    <hr class="my-4">
+  </div>
+
+  <!-- Certified Section -->
+  <section class="ecosystem-section section text-center">
+    <h2 style="color: #0055ff; font-style: italic;">Certified Skilled Professionals</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-3 mt-4" >
+      <div class="ecosystem-card text-center">
+        <img src="{% static 'images/eng.jpg' %}" alt="Engineering Graduates">
+        <h3 >Engineering Graduates</h3>
+        <h1 style="color: rgb(227, 48, 48); font-weight: 800;">{{ eng }}</h1>
+      </div>
+      <div class="ecosystem-card text-center">
+        <img src="{% static 'images/arts.jpg' %}" alt="Arts Graduates">
+        <h3>Arts & Science Graduates</h3>
+        <h1 style="color: rgb(252, 85, 177); font-weight: 800;">{{ arts }}</h1>
+      </div>
+      <div class="ecosystem-card text-center">
+        <img src="{% static 'images/poly.webp' %}" alt="Diploma Holders">
+        <h3>Diploma Holders</h3>
+        <h1 style="color: rgba(131, 52, 0, 0.837);font-weight: 800;">{{ poly }}</h1>
+      </div>
+      <div class="ecosystem-card text-center">
+        <img src="{% static 'images/iti.jpg' %}" alt="ITI Holders">
+        <h3>ITI Holders</h3>
+        <h1 style="color: rgb(93, 93, 244); font-weight: 800;">{{ iti }}</h1>
+      </div>
+      <div class="ecosystem-card text-center">
+        <img src="{% static 'images/icon4.png' %}" alt="Short Term Skilling">
+        <h3>Short Term Skilling</h3>
+        <h1 style="color: rgb(90, 210, 90); font-weight: 800;">{{ poly }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Form -->
+  <section style="background-color: #f8f9fa; padding: 20px;">
+    <h2 class="text-center mb-4">Search Trained Candidates</h2>
+
+    {% if messages %}
+    <div class="alert alert-danger text-center">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" action="?scroll=form" id="searchForm">
+      {% csrf_token %}
+      <div class="row g-2 justify-content-center">
+        <div class="col-12 col-md-2">
+          <select class="form-select" name="year" onchange="this.form.submit()">
+            <option disabled {% if not selected.year %}selected{% endif %}>Choose Year</option>
+            {% for y in years %}
+              <option value="{{ y.name }}" {% if selected.year == y.name %}selected{% endif %}>{{ y.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12 col-md-2">
+          <select class="form-select" name="college_type" onchange="this.form.submit()">
+            <option disabled {% if not selected.college_type %}selected{% endif %}>Choose College Type</option>
+            {% for ct in college_types %}
+              <option value="{{ ct.type_name }}" {% if selected.college_type == ct.type_name %}selected{% endif %}>{{ ct.type_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12 col-md-2">
+          <select class="form-select" name="department" onchange="this.form.submit()">
+            <option disabled {% if not selected.department %}selected{% endif %}>Choose Department</option>
+            {% for dept in departments %}
+              <option value="{{ dept.dept_name }}" {% if selected.department == dept.dept_name %}selected{% endif %}>{{ dept.dept_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12 col-md-2">
+          <select class="form-select" name="course" onchange="this.form.submit()">
+            <option disabled {% if not selected.course %}selected{% endif %}>Choose Course</option>
+            {% for c in courses %}
+              <option value="{{ c.course_name }}" {% if selected.course == c.course_name %}selected{% endif %}>{{ c.course_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12 col-md-2">
+          <select class="form-select" name="tp" onchange="this.form.submit()">
+            <option disabled {% if not selected.tp %}selected{% endif %}>Choose TP</option>
+            {% for t in tps %}
+              <option value="{{ t.tp_name }}" {% if selected.tp == t.tp_name %}selected{% endif %}>{{ t.tp_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12 col-md-2 d-flex gap-2">
+          <button class="btn btn-primary w-100" name="search" value="search">Search</button>
+          <a href="{% url 'index' %}?scroll=form" class="btn btn-danger w-100">Reset</a>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  {% if show_results %}
+  <div class="container my-5">
+    <div class="row text-center mb-4">
+      <div class="col-md-4 mx-auto">
+        <div class="bg-light p-3 rounded border">
+          <h3 class="mb-0">Total Candidates</h3>
+          <h1 class="text-success" style="font-weight: 600;">{{ candidate_count }}</h1>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mb-4">Our Candidates</h3>
+    <div class="row g-4" id="candidateContainer">
+      {% for candidate in candidates %}
+        <div class="col-md-3 {% if forloop.counter > 4 %}d-none more-candidates{% endif %}">
+          <div class="candidate-card p-3 border rounded">
+            <h6>{{ candidate.name }}</h6>
+            <p>
+              {{ candidate.mobile_number }}<br>
+              Certified: {{ candidate.course }}<br>
+              College: {{ candidate.college_name }}<br>
+              Training Provider: {{ candidate.tp }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if candidates|length > 4 %}
+    <div class="text-center mt-4">
+      <a href="{% url 'login_page' %}" class="btn btn-primary">View More To Login</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+
+  <footer class="text-center p-3 bg-light mt-5">
+    <p>&copy; 2025 Tamil Nadu Skill Development Corporation (TNSDC). All rights reserved.</p>
+  </footer>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if URL has scroll parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('scroll') === 'form') {
+        // Scroll to form immediately
+        const formElement = document.getElementById('searchForm');
+        if (formElement) {
+            formElement.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+    }
+    
+    // Prevent scrolling for manual Search button click
+    const searchButton = document.querySelector('button[name="search"]');
+    if (searchButton) {
+        searchButton.addEventListener('click', function(e) {
+            // Remove scroll parameter from form action for manual search
+            const form = document.getElementById('searchForm');
+            form.action = '';
+        });
+    }
+});
+</script>
+</body>
+</html>

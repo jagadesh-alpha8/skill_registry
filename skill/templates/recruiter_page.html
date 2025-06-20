@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Dashboard - Naan Mudhalvan Skill Registry</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .sidebar { height: 100vh; background-color: #343a40; padding: 20px; color: white; }
+    .sidebar a { color: white; display: block; margin-bottom: 15px; text-decoration: none; }
+    .content { padding: 20px; }
+    .student-card { border: 1px solid #dee2e6; border-radius: 10px; padding: 15px; background: white; margin-bottom: 20px; }
+    .student-card h5 { margin-bottom: 10px; }
+    .btn-shortlist { margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<section>
+  <div class="d-flex">
+    <div class="sidebar" style="height: 350px; background-color: white; color: black;">
+      <h4>Recruiter Panel</h4>
+      <a href="#" style="color: black;">Dashboard</a>
+      <a href="#" style="color: black;">Search Candidates</a>
+      <a href="#" style="color: black;">My Shortlist</a>
+      <a href="#" style="color: black;">Settings</a>
+      <form method="post" action="{% url 'logout' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" style="background: none; border: none; color: #007cba; text-decoration: underline; cursor: pointer;">
+            Logout
+        </button>
+    </form>
+    </div>
+  <div class="content flex-grow-1">
+    <center><h2>Search Trained Candidates</h2></center>
+
+    {% if messages %}
+  <div class="alert alert-danger">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+{% endif %}
+    
+    <form method="post" action="">
+        {% csrf_token %}
+    <div class="row g-2 mt-4 justify-content-center">
+    <div class="col-md-2">
+      <select class="form-select" name="year" onchange="this.form.submit()">
+        <option disabled {% if not selected.year %}selected{% endif %}>Choose Year</option>
+        {% for y in years %}
+          <option value="{{ y.name }}" {% if selected.year == y.name %}selected{% endif %}>{{ y.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <select class="form-select" name="college_type" onchange="this.form.submit()">
+        <option disabled {% if not selected.college_type %}selected{% endif %}>Choose College Type</option>
+        {% for ct in college_types %}
+          <option value="{{ ct.type_name }}" {% if selected.college_type == ct.type_name %}selected{% endif %}>{{ ct.type_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <select class="form-select" name="department" onchange="this.form.submit()">
+        <option disabled {% if not selected.department %}selected{% endif %}>Choose Department</option>
+        {% for dept in departments %}
+          <option value="{{ dept.dept_name }}" {% if selected.department == dept.dept_name %}selected{% endif %}>{{ dept.dept_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <select class="form-select" name="course" onchange="this.form.submit()">
+        <option disabled {% if not selected.course %}selected{% endif %}>Choose Course</option>
+        {% for c in courses %}
+          <option value="{{ c.course_name }}" {% if selected.course == c.course_name %}selected{% endif %}>{{ c.course_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <select class="form-select" name="tp" onchange="this.form.submit()">
+        <option disabled {% if not selected.tp %}selected{% endif %}>Choose TP</option>
+        {% for t in tps %}
+          <option value="{{ t.tp_name }}" {% if selected.tp == t.tp_name %}selected{% endif %}>{{ t.tp_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+     <div class="col-md-2">
+        <button class="btn btn-primary w-100" name="search" value="search">Search Skilled Candidates</button>
+      </div>
+
+    <div class="col-md-2">
+      <a href="{% url 'rec' %}" class="btn btn-danger w-100">Reset</a>
+    </div>
+  </div>
+</form>
+
+<br>
+{% if show_results %}
+<div class="row justify-content-center text-center mb-4">
+  <div class="col-md-3">
+    <div class="bg-light p-3 rounded border">
+      <h2 class="text-success">{{ candidate_count }}</h5>
+      <h5 class="mb-0">Total Candidates</h5>
+    </div>
+  </div>
+</div>
+</section>
+
+<form action="{% url 'export' %}" method="post" style="text-align: right; margin-right: 20px;">
+  {% csrf_token %}
+  <input type="hidden" name="search" value="export">
+  <input type="hidden" name="year" value="{{ selected.year }}">
+  <input type="hidden" name="college_type" value="{{ selected.college_type }}">
+  <input type="hidden" name="department" value="{{ selected.department }}">
+  <input type="hidden" name="course" value="{{ selected.course }}">
+  <input type="hidden" name="tp" value="{{ selected.tp }}">
+  <button type="submit" class="btn btn-success">Export as CSV</button>
+</form><br>
+
+<div style="margin-left: 10px; margin-right: 10px;">
+  <table class="table table-bordered table-striped table-hover" style='margin-right: 10px;'>
+    <thead class="table-light">
+      <tr class="text-center">
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Course</th>
+        <th>College</th>
+        <th>Mobile Number</th>
+        <th>Mail Id</th>
+        <th>Training Provider</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for candidate in candidates %}
+        <tr>
+          <td class="text-center">{{ forloop.counter }}</td>
+          <td>{{ candidate.name }}</td>
+          <td>{{ candidate.course }}</td>
+          <td>{{ candidate.college_name }}</td>
+          <td>{{ candidate.mobile_number }}</td>
+          <td>{{candidate.email}}</td>
+          <td>{{ candidate.tp }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+</div>
+
+
+
+  </div>
+</div>
+</div>
+  
+</body>
+</html>
