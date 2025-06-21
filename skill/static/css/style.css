@@ -5,11 +5,6 @@
   box-sizing: border-box;
 }
 
-/* body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f4f4f4;
-  color: #222;
-} */
 
 /* Header Top Bar */
 .top-bar {
@@ -232,8 +227,8 @@ nav ul li a:hover {
 
 /* Footer */
 footer {
-  background-color: #003366;
-  color: white;
+  background-color: rgb(48 68 67);
+  color: black;
   padding: 20px;
   text-align: center;
   font-size: 14px;
@@ -343,8 +338,10 @@ footer {
 
 /* Search Form */
 #searchForm {
-  background-color: #ffffff;
-  padding: 30px 20px;
+  background-color: #daefec;
+  font-family: 'Poppins', sans-serif;
+  
+  /* padding: 30px 20px; */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   margin: 40px auto;
@@ -353,6 +350,7 @@ footer {
 
 #searchForm .form-select,
 #searchForm .btn {
+  color: #003366;
   padding: 10px 12px;
   font-size: 16px;
   border-radius: 6px;

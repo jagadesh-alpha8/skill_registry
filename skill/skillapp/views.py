@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Q
+
 from django.contrib.auth.decorators import login_required
 from skillapp.models import CandidateProfile, Year, CollegeType, College, Department, Course, TrainingProvider
 from django.http import HttpResponse
@@ -12,23 +14,39 @@ def logout_view(request):
     messages.success(request, 'You have been logged out successfully.')
     return redirect('my_home') 
 
+# def login_page(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         try:
+#             user_obj = User.objects.get(email=email)
+#             user = authenticate(request, username=user_obj.username, password=password)
+#             if user is not None:
+#                 login(request, user)
+#                 return redirect('rec')  
+#             else:
+#                 messages.error(request, "Invalid password")
+#         except User.DoesNotExist:
+#             messages.error(request, "Email not registered")
+#         return render(request, 'login_page.html')
+#     return render(request, 'login_page.html')
+
 def login_page(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        identifier = request.POST.get('email')  # This can be email or username
         password = request.POST.get('password')
         try:
-            user_obj = User.objects.get(email=email)
+            user_obj = User.objects.get(Q(username=identifier) | Q(email=identifier))
             user = authenticate(request, username=user_obj.username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('rec')  
+                return redirect('rec')
             else:
                 messages.error(request, "Invalid password")
         except User.DoesNotExist:
-            messages.error(request, "Email not registered")
+            messages.error(request, "User not found")
         return render(request, 'login_page.html')
     return render(request, 'login_page.html')
-
 
 def get_candidate_context(request):
     selected = {
@@ -41,7 +59,7 @@ def get_candidate_context(request):
 
     show_results = False
     candidates = CandidateProfile.objects.none()
-    eng = CandidateProfile.objects.filter(college_type__type_name="ENGINNERING").count()
+    eng = CandidateProfile.objects.filter(college_type__type_name="ENGINEERING").count()
     poly = CandidateProfile.objects.filter(college_type__type_name="POLYTECHNIC").count()
     arts = CandidateProfile.objects.filter(college_type__type_name="ARTS AND SCIENCE").count()
     iti = CandidateProfile.objects.filter(college_type__type_name="ITI").count()

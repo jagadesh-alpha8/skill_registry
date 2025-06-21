@@ -10,7 +10,6 @@
   <style>
   body {
         font-family: 'Poppins', sans-serif;
-
   }
 
   </style>
@@ -18,7 +17,7 @@
 <body>
   <header>
     <div class="top-bar d-flex align-items-center justify-content-between p-3">
-      <img src="{% static 'images/tn-logo.png' %}" alt="Government Logo" class="logo"/>
+      <img src="{% static 'images/tn-logo.png' %}" alt="Government Logo" class="logo" >
       <div class="titles text-center">
         <b ><p>தமிழ்நாடு அரசு</p></b>
         <b><p>Government of Tamil Nadu</p></b>
@@ -33,7 +32,7 @@
           <button class="login-btn">Login</button>
         </a>
       </div>
-      <img src="{% static 'images/leader1.jpg' %}" alt="Chief Minister" class="circular-img">
+      <img src="{% static 'images/leader1.jpg' %}" alt="Chief Minister" class="circular-img" style="margin-right: 50px;">
     </div>
 
     <nav>
@@ -65,6 +64,7 @@
           </ul>
         </li>
         <li><a href="#">Apprenticeship</a></li>
+        <li><a href="#">TNSkill Registry</a></li>
         <li><a href="#">Media</a></li>
         <li><a href="#">Service Desk</a></li>
       </ul>
@@ -75,7 +75,7 @@
     <img src="{% static 'images/1.png' %}" alt="Banner" style="width: 100%; height: auto;">
   </div>
 
-  <div class="text-center py-3" style="background-color: #f4f4f4; padding: 30px" >
+  <div class="text-center py-3" style="background-color:#daefec; padding: 30px" >
     <h2 style="color: #d30db2; font-weight: 800; font-size: 40px;">
       Strengthening Tamil Nadu's Workforce Ecosystem
     </h2><br>
@@ -90,7 +90,7 @@
   </div>
 
   <!-- Certified Section -->
-  <section class="ecosystem-section section text-center">
+  <section class="ecosystem-section section text-center" style="background-color: #daefec;" >
     <h2 style="color: #0055ff; font-style: italic;">Certified Skilled Professionals</h2>
     <div class="d-flex flex-wrap justify-content-center gap-3 mt-4" >
       <div class="ecosystem-card text-center">
@@ -122,8 +122,8 @@
   </section>
 
   <!-- Search Form -->
-  <section style="background-color: #f8f9fa; padding: 20px;">
-    <h2 class="text-center mb-4">Search Trained Candidates</h2>
+  <section style="background-color: #daefec; padding: 20px;">
+    <h2 class="text-center mb-4" style="color: #0055ff; font-style: italic;">Search Trained Candidates</h2>
 
     {% if messages %}
     <div class="alert alert-danger text-center">
@@ -138,7 +138,7 @@
       <div class="row g-2 justify-content-center">
         <div class="col-12 col-md-2">
           <select class="form-select" name="year" onchange="this.form.submit()">
-            <option disabled {% if not selected.year %}selected{% endif %}>Choose Year</option>
+            <option disabled {% if not selected.year %}selected{% endif %}>Select Year</option>
             {% for y in years %}
               <option value="{{ y.name }}" {% if selected.year == y.name %}selected{% endif %}>{{ y.name }}</option>
             {% endfor %}
@@ -146,7 +146,7 @@
         </div>
         <div class="col-12 col-md-2">
           <select class="form-select" name="college_type" onchange="this.form.submit()">
-            <option disabled {% if not selected.college_type %}selected{% endif %}>Choose College Type</option>
+            <option disabled {% if not selected.college_type %}selected{% endif %}>Select College Type</option>
             {% for ct in college_types %}
               <option value="{{ ct.type_name }}" {% if selected.college_type == ct.type_name %}selected{% endif %}>{{ ct.type_name }}</option>
             {% endfor %}
@@ -154,7 +154,7 @@
         </div>
         <div class="col-12 col-md-2">
           <select class="form-select" name="department" onchange="this.form.submit()">
-            <option disabled {% if not selected.department %}selected{% endif %}>Choose Department</option>
+            <option disabled {% if not selected.department %}selected{% endif %}>Select Department</option>
             {% for dept in departments %}
               <option value="{{ dept.dept_name }}" {% if selected.department == dept.dept_name %}selected{% endif %}>{{ dept.dept_name }}</option>
             {% endfor %}
@@ -162,7 +162,7 @@
         </div>
         <div class="col-12 col-md-2">
           <select class="form-select" name="course" onchange="this.form.submit()">
-            <option disabled {% if not selected.course %}selected{% endif %}>Choose Course</option>
+            <option disabled {% if not selected.course %}selected{% endif %}>Select Course</option>
             {% for c in courses %}
               <option value="{{ c.course_name }}" {% if selected.course == c.course_name %}selected{% endif %}>{{ c.course_name }}</option>
             {% endfor %}
@@ -170,7 +170,7 @@
         </div>
         <div class="col-12 col-md-2">
           <select class="form-select" name="tp" onchange="this.form.submit()">
-            <option disabled {% if not selected.tp %}selected{% endif %}>Choose TP</option>
+            <option disabled {% if not selected.tp %}selected{% endif %}>Select TP</option>
             {% for t in tps %}
               <option value="{{ t.tp_name }}" {% if selected.tp == t.tp_name %}selected{% endif %}>{{ t.tp_name }}</option>
             {% endfor %}
@@ -182,12 +182,12 @@
         </div>
       </div>
     </form>
-  </section>
+ 
 
   {% if show_results %}
   <div class="container my-5">
     <div class="row text-center mb-4">
-      <div class="col-md-4 mx-auto">
+      <div class="col-md-3 mx-auto">
         <div class="bg-light p-3 rounded border">
           <h3 class="mb-0">Total Candidates</h3>
           <h1 class="text-success" style="font-weight: 600;">{{ candidate_count }}</h1>
@@ -214,15 +214,15 @@
 
     {% if candidates|length > 4 %}
     <div class="text-center mt-4">
-      <a href="{% url 'login_page' %}" class="btn btn-primary">View More To Login</a>
+      <a href="{% url 'login_page' %}" class="btn btn-primary" style="background-color: #003366;">Login to View More</a>
     </div>
     {% endif %}
   </div>
   {% endif %}
+ </section>
 
-
-  <footer class="text-center p-3 bg-light mt-5">
-    <p>&copy; 2025 Tamil Nadu Skill Development Corporation (TNSDC). All rights reserved.</p>
+  <footer class="text-center p-3 mt-5">
+    <p style="color: white; " >&copy; 2025 Tamil Nadu Skill Development Corporation (TNSDC). All rights reserved.</p>
   </footer>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{% static 'js/script.js' %}"></script>
