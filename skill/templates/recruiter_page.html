@@ -48,7 +48,7 @@
     <div class="row g-2 mt-4 justify-content-center">
     <div class="col-md-2">
       <select class="form-select" name="year" onchange="this.form.submit()">
-        <option disabled {% if not selected.year %}selected{% endif %}>Choose Year</option>
+        <option disabled {% if not selected.year %}selected{% endif %}>Select Year</option>
         {% for y in years %}
           <option value="{{ y.name }}" {% if selected.year == y.name %}selected{% endif %}>{{ y.name }}</option>
         {% endfor %}
@@ -57,7 +57,7 @@
 
     <div class="col-md-2">
       <select class="form-select" name="college_type" onchange="this.form.submit()">
-        <option disabled {% if not selected.college_type %}selected{% endif %}>Choose College Type</option>
+        <option disabled {% if not selected.college_type %}selected{% endif %}>Select College Type</option>
         {% for ct in college_types %}
           <option value="{{ ct.type_name }}" {% if selected.college_type == ct.type_name %}selected{% endif %}>{{ ct.type_name }}</option>
         {% endfor %}
@@ -66,7 +66,7 @@
 
     <div class="col-md-2">
       <select class="form-select" name="department" onchange="this.form.submit()">
-        <option disabled {% if not selected.department %}selected{% endif %}>Choose Department</option>
+        <option disabled {% if not selected.department %}selected{% endif %}>Select Department</option>
         {% for dept in departments %}
           <option value="{{ dept.dept_name }}" {% if selected.department == dept.dept_name %}selected{% endif %}>{{ dept.dept_name }}</option>
         {% endfor %}
@@ -75,7 +75,7 @@
 
     <div class="col-md-2">
       <select class="form-select" name="course" onchange="this.form.submit()">
-        <option disabled {% if not selected.course %}selected{% endif %}>Choose Course</option>
+        <option disabled {% if not selected.course %}selected{% endif %}>Select Course</option>
         {% for c in courses %}
           <option value="{{ c.course_name }}" {% if selected.course == c.course_name %}selected{% endif %}>{{ c.course_name }}</option>
         {% endfor %}
@@ -84,7 +84,7 @@
 
     <div class="col-md-2">
       <select class="form-select" name="tp" onchange="this.form.submit()">
-        <option disabled {% if not selected.tp %}selected{% endif %}>Choose TP</option>
+        <option disabled {% if not selected.tp %}selected{% endif %}>Select TP</option>
         {% for t in tps %}
           <option value="{{ t.tp_name }}" {% if selected.tp == t.tp_name %}selected{% endif %}>{{ t.tp_name }}</option>
         {% endfor %}
@@ -154,11 +154,8 @@
 {% endif %}
 </div>
 
-
-
   </div>
 </div>
 </div>
-  
 </body>
 </html>
